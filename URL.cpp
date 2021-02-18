@@ -35,7 +35,7 @@ string URL::getContents()
 
     if(curl)
     {
-        curl_easy_setopt(curl,CURLOPT_URL, this->charURL);
+        curl_easy_setopt(curl,CURLOPT_URL, this->charURL); //could do stringURL.c_str()
         curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION, handle_data); 
 
         CURLcode res = curl_easy_perform(curl);
