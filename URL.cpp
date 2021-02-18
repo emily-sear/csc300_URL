@@ -6,7 +6,7 @@
 using namespace std;
 string contents = "";
 
-URL::URL(string url)
+URL::URL(string stringURL)
 {
     this->stringURL=stringURL;
     this->charURL = &this->stringURL[0];
