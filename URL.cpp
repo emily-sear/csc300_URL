@@ -4,6 +4,7 @@
 #include "URL.hpp"
 
 using namespace std;
+
 string contents = "";
 
 URL::URL(string stringURL)
@@ -11,15 +12,25 @@ URL::URL(string stringURL)
     this->stringURL=stringURL;
     this->charURL = &this->stringURL[0];
 }
+
 size_t handle_data(void *ptr, size_t size, size_t nmemb, void *stream)
 {
-    contents.append((char*) ptr);
-    return size*nmemb;
+    int numbytes = size*nmemb;
 
+    char lastchar = *((char *) ptr + numbytes - 1);
+    *((char *) ptr + numbytes - 1) = '\0';
+
+    contents.append((char *)ptr); 
+    contents.append(1,lastchar); 
+
+    *((char *) ptr + numbytes - 1) = lastchar; 
+    return size*nmemb;
 }
+
 
 string URL::getContents()
 {
+    contents = "";
     CURL* curl = curl_easy_init();
 
     if(curl)
