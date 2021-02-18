@@ -10,7 +10,6 @@ string contents = "";
 URL::URL(string stringURL)
 {
     this->stringURL=stringURL;
-    this->charURL = &this->stringURL[0];
 }
 
 size_t handle_data(void *ptr, size_t size, size_t nmemb, void *stream)
@@ -35,7 +34,7 @@ string URL::getContents()
 
     if(curl)
     {
-        curl_easy_setopt(curl,CURLOPT_URL, this->charURL); //could do stringURL.c_str()
+        curl_easy_setopt(curl,CURLOPT_URL, this->stringURL.c_str()); 
         curl_easy_setopt(curl,CURLOPT_WRITEFUNCTION, handle_data); 
 
         CURLcode res = curl_easy_perform(curl);
